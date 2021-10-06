@@ -15,11 +15,7 @@ const ItemList = ({color,index}) => {
   })
   return (
     <Animated.View style={[styles.Container,BackgroundAnimation]}>
-     {/* {
-       (index==0)&&(
-         <View style={styles.LeftView}></View>
-       )
-     } */}
+
     </Animated.View>
   )
 }
