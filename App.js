@@ -1,12 +1,12 @@
 import React from 'react';
 import { FlatList, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import Animated, { useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import ItemList from './Component/ItemList';
  const Item=[{
   id:'1',
   img:"https://cdn.pixabay.com/photo/2016/05/03/12/19/credit-card-1369111__340.png",
   name:"Dont Smile at Me",
-  color:'#e0cab1'
+  color:'rgb(0,0,0)'
 
 },
 {
@@ -25,12 +25,25 @@ import ItemList from './Component/ItemList';
 ]
 export default function App() {
 
-
+  const translationX = useSharedValue(0);
+  const AnimatedFlatlist=Animated.createAnimatedComponent(FlatList)
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    translationX.value = event.contentOffset.x;
+  });
+  const Slide = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: translationX.value,
+        },
+      ],
+    };
+  });
   const renderItem=({item,index})=>{
    
     return(
       <View style={styles.Container}>
-         <ItemList key={index} color={item.color} />
+         <ItemList key={index} color={item.color} index={index} />
       </View>
     )
   }
@@ -40,13 +53,14 @@ export default function App() {
       </View>
       <View style={styles.RoundView}/>
       <View style={styles.ItemList}>
-        <FlatList
+        <AnimatedFlatlist
         data={Item}
         keyExtractor={(item)=>item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={renderItem}
-
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
         />
       </View>
      <StatusBar/>
