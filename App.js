@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
-import Animated, { useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { Extrapolate, interpolate, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Item } from './Component/Data';
 import ItemList from './Component/ItemList';
 export default function App() {
@@ -10,29 +10,32 @@ export default function App() {
   const scrollHandler = useAnimatedScrollHandler((event) => {
     translationX.value = event.contentOffset.x;
   });
-  const Slide = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateX: translationX.value,
-        },
-      ],
-    };
-  });
+  const BackgroundAnimation=useAnimatedStyle(()=>{
+    return{
+      // transform:[{
+      //   translateY:interpolate(translationX.value,[0,100],[0,-150],Extrapolate.CLAMP)
+      // }],
+      // height:interpolate(translationX.value,[0,100],[130,0],Extrapolate.CLAMP),
+      top:interpolate(translationX.value,[0,100],[0,-150],Extrapolate.CLAMP)
+    }
+  })
+
+ 
   const renderItem=({item,index})=>{
    
     return(
-      <View style={styles.Container}>
-         <ItemList key={index} color={item.color} index={index} />
-      </View>
+      <Animated.View style={[styles.Container]}>
+         <ItemList key={index} color={item.color} translationX={translationX} index={index} />
+      </Animated.View>
     )
   }
   return (
     <View style={styles.container}>
-      <View style={styles.Header}>
-      </View>
-      <View style={styles.RoundView}/>
-      <View style={styles.ItemList}>
+     
+      <Animated.View style={[styles.Header,BackgroundAnimation]}> 
+      <Animated.View style={[styles.RoundView]}/>
+       </Animated.View>
+      {/* <Animated.View style={[styles.ItemList,]}> */}
         <AnimatedFlatlist
         data={Item}
         keyExtractor={(item)=>item.id}
@@ -42,7 +45,7 @@ export default function App() {
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         />
-      </View>
+      {/* </Animated.View> */}
      <StatusBar/>
     </View>
   );
@@ -50,9 +53,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    top:15,
+    // top:20,
     flex: 1,
     backgroundColor: '#fff',
+    
   
   },
   Header:{
@@ -61,7 +65,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#B6E3DB',
     alignSelf:'center',
     marginBottom:15,
-    borderRadius:30
+    borderRadius:30,
+    // top:-130
   },
   RoundView:{
     width:60,
@@ -72,9 +77,12 @@ const styles = StyleSheet.create({
     top:8
   },
   ItemList:{
-    height:460,
-  },
+   top:-100,
+   height:750
+   },
   Container:{
     padding:10,
+    // top:130
+    
   },
 });
