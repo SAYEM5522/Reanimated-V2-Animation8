@@ -21,4 +21,12 @@ export const Item=[{
   color:'#f7e2cb'
 
 },
+{
+  id:'4',
+  img:"https://cdn.pixabay.com/photo/2020/09/21/21/30/credit-card-5591300_960_720.png",
+  name:"Dont Smile at Me",
+  song:'Billie Eilish',
+  color:'#f7e2cb'
+
+},
 ]
