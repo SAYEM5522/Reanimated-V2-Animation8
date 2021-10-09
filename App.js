@@ -6,11 +6,11 @@ import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnima
 export default function App() {
   const Y = useSharedValue(0);
   const config={
-    mass:0.01,
-    damping:10,
+    mass:0.4,
+    damping:16,
     overshootClamping:false,
     restDisplacementThreshold:10,
-    restSpeedThreshold:0.1
+    restSpeedThreshold:10
   }
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, ctx) => {
@@ -18,10 +18,13 @@ export default function App() {
     },
     onActive: (event, ctx) => {
       Y.value = ctx.startX + event.translationY;
+   
     },
     onEnd: (_) => {
-      
-    //  Y.value=withSpring(-100)
+    
+    // if(Y.value<-600) {
+    //     Y.value=withSpring(0)
+    //   }
       
     },
   });
@@ -34,7 +37,7 @@ export default function App() {
     return {
       // transform: [
       //   {
-      //     translateY:Y.value
+      //     translateY:clamp(Y.value,0,720)
       //   },
       // ],
       height:withSpring(interpolate(Y.value,[0,-10],[70,720],Extrapolate.CLAMP),config)
