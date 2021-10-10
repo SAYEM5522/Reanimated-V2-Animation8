@@ -1,9 +1,49 @@
 import React from 'react';
-import { FlatList, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, FlatList, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import {Item} from "./Component/Data"
 import Header from './Component/Header';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const BottomHeight=70
+const styles = StyleSheet.create({
+  container:{
+    flex:1
+  },
+  Container:{
+    height:70,
+    width:'100%',
+    backgroundColor:'red',
+    position:'absolute',
+    left:0,
+    right:0,
+    bottom:0
+  },
+  Image:{
+    height:160,
+    width:170,
+    borderRadius:10,
+    // resizeMode:'contain'
+  },
+  List:{
+    alignSelf:'center',
+    
+  },
+  SongC:{
+    fontSize:16,
+    fontWeight:'bold',
+    color:'black',
+    top:10
+  },
+  SongN:{
+    fontSize:13,
+    fontWeight:'700',
+    color:'gray',
+    top:10,
+    bottom:4
+  }
+});
 export default function App() {
   const Y = useSharedValue(0);
   const config={
@@ -36,8 +76,9 @@ export default function App() {
   }
   const animatedStyle = useAnimatedStyle(() => {
     return {
+    
      
-      height:withSpring(interpolate(Y.value,[0,-10],[70,720],Extrapolate.CLAMP),config)
+      height:withSpring(interpolate(Y.value,[0,-10],[BottomHeight,windowHeight],Extrapolate.CLAMP),config)
 
     };
   });
@@ -45,9 +86,11 @@ export default function App() {
     return(
       <View style={{padding:8}}>
          <Image
-         source={{uri:'https://thumbs.dreamstime.com/b/young-african-american-man-s-listening-to-music-headphones-holding-smartphone-neon-light-gradient-background-concept-154090919.jpg'}}
+         source={{uri:item.img}}
          style={styles.Image}
          />
+         <Text style={styles.SongC}>{item.name}</Text>
+         <Text style={styles.SongN}>{item.song}</Text>
       </View>
     )
   }
@@ -74,27 +117,4 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container:{
-    flex:1
-  },
-  Container:{
-    height:70,
-    width:'100%',
-    backgroundColor:'red',
-    position:'absolute',
-    left:0,
-    right:0,
-    bottom:0
-  },
-  Image:{
-    height:150,
-    width:150,
-    borderRadius:10,
-    resizeMode:'contain'
-  },
-  List:{
-    alignSelf:'center',
-    
-  }
-});
+

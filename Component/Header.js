@@ -17,8 +17,8 @@ export default Header
 
 const styles = StyleSheet.create({
   Image:{
-    height:40,
-    width:40,
+    height:35,
+    width:35,
     borderRadius:20
   },
   HeaderText:{
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-between',
-    paddingHorizontal:15,
+    paddingHorizontal:10,
     paddingVertical:20
   }
 })
