@@ -92,6 +92,22 @@ const styles = StyleSheet.create({
     // width:windowWidth-55,
     borderRadius:30,
     alignSelf:'center',
+  },
+  TextC:{
+    left:30,
+    top:33
+  },
+  TextC1:{
+    fontSize:22,
+    fontWeight:'bold',
+
+  },
+  TextC2:{
+    fontSize:15,
+    fontWeight:'700',
+    color:'gray',
+    left:5
+    
   }
 
  
@@ -192,11 +208,15 @@ export default function App() {
         <Text style={styles.HeaderST}>Daniel</Text>
         </Animated.View>
         <Animated.View style={[styles.CBImage,ImageAnimation]}>
-        <Animated.Image
+        <Image
         source={{uri:'https://weart.co/v2/wp-content/uploads/2017/05/WE_ART_DAVID_BLACK_1705_2.jpg'}}
         style={[styles.BImage]}
         />
         </Animated.View>
+        <View style={styles.TextC}>
+          <Text style={styles.TextC1}>Jude Wild</Text>
+          <Text style={styles.TextC2}>Daniel</Text>
+        </View>
       </Animated.View>
       </PanGestureHandler>
      <StatusBar/>
