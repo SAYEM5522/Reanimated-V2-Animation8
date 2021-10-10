@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     height:160,
     width:170,
     borderRadius:15,
-    // resizeMode:'contain'
   },
   List:{
     alignSelf:'center',
@@ -44,7 +43,23 @@ const styles = StyleSheet.create({
     color:'gray',
     top:10,
     bottom:4
+  },
+  ImageS:{
+    overflow: 'visible',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 8,
+    height:160,
+    width:170,
+    borderRadius:15,
+ 
   }
+ 
 });
 export default function App() {
   const Y = useSharedValue(0);
@@ -87,10 +102,14 @@ export default function App() {
   const renderItem=({item,index})=>{
     return(
       <View style={{padding:8}}>
+        <View style={styles.ImageS}>
+
+      
          <Image
          source={{uri:item.img}}
          style={styles.Image}
          />
+         </View>
          <Text style={styles.SongC}>{item.name}</Text>
          <Text style={styles.SongN}>{item.song}</Text>
       </View>
