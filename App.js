@@ -95,7 +95,9 @@ const styles = StyleSheet.create({
   },
   TextC:{
     left:30,
-    top:33
+    top:33,
+    flexDirection:'row',
+    alignItems:'center'
   },
   TextC1:{
     fontSize:22,
@@ -107,7 +109,9 @@ const styles = StyleSheet.create({
     fontWeight:'700',
     color:'gray',
     left:5
-    
+  },
+  Heart:{
+    marginLeft:(windowWidth-195)
   }
 
  
@@ -213,10 +217,14 @@ export default function App() {
         style={[styles.BImage]}
         />
         </Animated.View>
-        <View style={styles.TextC}>
+        <View  style={styles.TextC}>
+        <View>
           <Text style={styles.TextC1}>Jude Wild</Text>
           <Text style={styles.TextC2}>Daniel</Text>
         </View>
+        <AntDesign name="hearto" style={styles.Heart} size={24} color="black" />
+        </View>
+       
       </Animated.View>
       </PanGestureHandler>
      <StatusBar/>
