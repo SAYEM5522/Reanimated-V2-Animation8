@@ -5,7 +5,7 @@ import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnima
 import {Item} from "./Component/Data"
 import Header from './Component/Header';
 import Feed from './Component/Fedd';
-
+import { AntDesign } from '@expo/vector-icons';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const BottomHeight=70
@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
     flex:1
   },
   Container:{
-    height:70,
+    height:windowHeight,
     width:'100%',
     backgroundColor:'#fff',
     position:'absolute',
     left:0,
     right:0,
-    bottom:0
+    // bottom:0
   },
   Image:{
     height:160,
@@ -58,7 +58,42 @@ const styles = StyleSheet.create({
     width:170,
     borderRadius:15,
  
+  },
+  HeaderS:{
+    height:70,
+    width:'100%',
+    flexDirection:'row',
+    alignItems:'center',
+    left:30,
+    top:10
+  },
+  BImage:{
+    height:(windowHeight/2)-50,
+    width:windowWidth-55,
+    alignSelf:'center',
+    borderRadius:30
+  },
+  HeaderST:{
+    fontSize:15,
+    left:120,
+    fontWeight:'bold'
+  },
+  CBImage:{
+    overflow: 'visible',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 8,
+    // height:(windowHeight/2)-50,
+    // width:windowWidth-55,
+    borderRadius:30,
+    alignSelf:'center',
   }
+
  
 });
 export default function App() {
@@ -80,12 +115,16 @@ export default function App() {
     },
     onEnd: (_) => {
     
-    // if(Y.value<-600) {
-    //     Y.value=withSpring(0)
-    //   }
-      
+    if(Y.value<-30) {
+        Y.value=withSpring(-(windowHeight-95),config)
+      }
+      if(Y.value<-370){
+        Y.value=withSpring(0,config)
+
+      }
     },
   });
+
   
   function clamp(value, lowerBound, upperBound) {
     'worklet';
@@ -93,18 +132,35 @@ export default function App() {
   }
   const animatedStyle = useAnimatedStyle(() => {
     return {
-    
-     
-      height:withSpring(interpolate(Y.value,[0,-10],[BottomHeight,windowHeight],Extrapolate.CLAMP),config)
-
+      top:windowHeight-95,
+      // height:withSpring(interpolate(Y.value,[0,-10],[BottomHeight,windowHeight-20],Extrapolate.CLAMP),config)
+      transform:[{
+        translateY:clamp(Y.value,-(windowHeight-95),0)
+      }]
+    };
+  });
+  const HeaderOpacity = useAnimatedStyle(() => {
+    return {
+      opacity:interpolate(Y.value,[0,-(windowHeight-95)],[0,1],Extrapolate.CLAMP)
+    };
+  });
+  const ImageAnimation = useAnimatedStyle(() => {
+    return {
+     transform:[{
+       translateX:interpolate(Y.value,[0,-(windowHeight-95)],[-150,0],Extrapolate.CLAMP),
+     },
+     {
+       scale:interpolate(Y.value,[0,-(windowHeight-95)],[0.15,1],Extrapolate.CLAMP),
+     }
+    ],
+    top:interpolate(Y.value,[0,-(windowHeight-95)],[-193,10],Extrapolate.CLAMP),
+    borderRadius:interpolate(Y.value,[0,-(windowHeight-95)],[20,30],Extrapolate.CLAMP),
     };
   });
   const renderItem=({item,index})=>{
     return(
       <View style={{padding:8}}>
         <View style={styles.ImageS}>
-
-      
          <Image
          source={{uri:item.img}}
          style={styles.Image}
@@ -131,6 +187,16 @@ export default function App() {
       </View>
       <PanGestureHandler onGestureEvent={gestureHandler}>
       <Animated.View style={[styles.Container,animatedStyle,]}>
+        <Animated.View style={[styles.HeaderS,HeaderOpacity]}>
+        <AntDesign name="down" size={30} color="black" />
+        <Text style={styles.HeaderST}>Daniel</Text>
+        </Animated.View>
+        <Animated.View style={[styles.CBImage,ImageAnimation]}>
+        <Animated.Image
+        source={{uri:'https://weart.co/v2/wp-content/uploads/2017/05/WE_ART_DAVID_BLACK_1705_2.jpg'}}
+        style={[styles.BImage]}
+        />
+        </Animated.View>
       </Animated.View>
       </PanGestureHandler>
      <StatusBar/>
