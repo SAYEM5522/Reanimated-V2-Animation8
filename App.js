@@ -4,6 +4,8 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import {Item} from "./Component/Data"
 import Header from './Component/Header';
+import Feed from './Component/Fedd';
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const BottomHeight=70
@@ -14,7 +16,7 @@ const styles = StyleSheet.create({
   Container:{
     height:70,
     width:'100%',
-    backgroundColor:'red',
+    backgroundColor:'#fff',
     position:'absolute',
     left:0,
     right:0,
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
   Image:{
     height:160,
     width:170,
-    borderRadius:10,
+    borderRadius:15,
     // resizeMode:'contain'
   },
   List:{
@@ -96,14 +98,14 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
+      <Header/>
       <View style={styles.List}>
-        
           <FlatList
           data={Item}
           keyExtractor={(item)=>item.id}
           showsVerticalScrollIndicator={false}
           renderItem={renderItem}
-          ListHeaderComponent={<Header/>}
+          ListHeaderComponent={<Feed/>}
           numColumns={2}
           />
         
