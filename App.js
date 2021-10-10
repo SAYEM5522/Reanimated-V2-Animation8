@@ -177,6 +177,22 @@ export default function App() {
     borderRadius:interpolate(Y.value,[0,-(windowHeight-95)],[20,30],Extrapolate.CLAMP),
     };
   });
+  const TextCnimation = useAnimatedStyle(() => {
+    return {
+     transform:[{
+       translateY:interpolate(Y.value,[0,-(windowHeight-95)],[-410,0],Extrapolate.CLAMP),
+     },
+     {
+      translateX:interpolate(Y.value,[0,-(windowHeight-95)],[70,0],Extrapolate.CLAMP),
+     }
+    ],
+    };
+  });
+  const Text1Animation = useAnimatedStyle(() => {
+    return {
+      fontSize:interpolate(Y.value,[0,-(windowHeight-95)],[15,22],Extrapolate.CLAMP),
+    };
+  });
   const renderItem=({item,index})=>{
     return(
       <View style={{padding:8}}>
@@ -218,10 +234,10 @@ export default function App() {
         />
         </Animated.View>
         <View  style={styles.TextC}>
-        <View>
-          <Text style={styles.TextC1}>Jude Wild</Text>
+        <Animated.View style={TextCnimation}>
+          <Animated.Text style={[styles.TextC1,Text1Animation]}>Jude Wild</Animated.Text>
           <Text style={styles.TextC2}>Daniel</Text>
-        </View>
+        </Animated.View>
         <AntDesign name="hearto" style={styles.Heart} size={24} color="black" />
         </View>
        
