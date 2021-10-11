@@ -67,7 +67,14 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     left:30,
-    top:10
+    top:10,
+    justifyContent:'space-between'
+  },
+  HeaderS2:{
+    flexDirection:'row',
+    alignItems:'center',
+    left:30,
+    display:'flex'
   },
   BImage:{
     height:(windowHeight/2)-50,
@@ -78,7 +85,8 @@ const styles = StyleSheet.create({
   HeaderST:{
     fontSize:15,
     left:120,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    top:-20
   },
   CBImage:{
     overflow: 'visible',
@@ -145,6 +153,10 @@ const styles = StyleSheet.create({
     top:60,
     justifyContent:'space-evenly',
    
+  },
+  PlayIcon:{
+    right:40,
+    top:-15
   }
 
  
@@ -248,7 +260,11 @@ export default function App() {
     'worklet'
     setPlay(!play)
   }
-
+  const PlayIconAnimation=useAnimatedStyle(()=>{
+    return{
+    opacity:interpolate(Y.value,[0,-((windowHeight-95)/3)],[1,0],Extrapolate.CLAMP)
+    }
+  })
   const AniatedSlider=Animated.createAnimatedComponent(Slider)
   const renderItem=({item,index})=>{
     return(
@@ -280,10 +296,21 @@ export default function App() {
       </View>
       <PanGestureHandler onGestureEvent={gestureHandler}>
       <Animated.View style={[styles.Container,animatedStyle,]}>
-        <Animated.View style={[styles.HeaderS,HeaderOpacity]}>
+        <View style={[styles.HeaderS]}>
+        <Animated.View style={styles.HeaderS2,HeaderOpacity}>
         <AntDesign name="down" size={26} color="black" />
         <Text style={styles.HeaderST}>Daniel</Text>
         </Animated.View>
+
+        <Animated.View style={[styles.PlayIcon,PlayIconAnimation]}>
+        {
+        play?<AntDesign name="pause" onPress={playMusic} size={50} color="black" />
+        :<MaterialIcons name="play-arrow" onPress={playMusic} size={50} color="black"  />
+         }
+        </Animated.View>
+        </View>
+       
+
         <Animated.View style={[styles.CBImage,ImageAnimation]}>
         <Image
         source={{uri:'https://weart.co/v2/wp-content/uploads/2017/05/WE_ART_DAVID_BLACK_1705_2.jpg'}}
@@ -308,12 +335,14 @@ export default function App() {
           thumbTintColor="black"
           initial value={1.7}    
   />
-        <View style={styles.PlayList}>
+        <View style={[styles.PlayList]}>
         <AntDesign name="banckward" size={28} color="black" />
+       
       {
         play?<AntDesign name="pause" onPress={playMusic} style={styles.play} size={55} color="white" />
         :<MaterialIcons name="play-arrow" onPress={playMusic} size={55} color="white" style={styles.play} />
       }
+    
       <AntDesign name="forward" size={28} color="black" />
         </View>
       </Animated.View>
