@@ -7,6 +7,7 @@ import Header from './Component/Header';
 import Feed from './Component/Fedd';
 import { AntDesign } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
+import { MaterialIcons } from '@expo/vector-icons';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const BottomHeight=70
@@ -119,12 +120,24 @@ const styles = StyleSheet.create({
      height: 40,
      alignSelf:'center',
      top:40
+  },
+  play:{
+    alignSelf:"center",
+    padding:20,
+    backgroundColor:'black',
+    borderRadius:45,
+  },
+  PlayList:{
+    flexDirection:"row",
+    alignItems:'center',
+    top:60,
+    justifyContent:'space-evenly'
   }
 
  
 });
 export default function App() {
-  const [value,setValue]=useState(0);
+  const [play ,setPlay]=useState(false)
   const Y = useSharedValue(0);
   const config={
     mass:0.3,
@@ -161,7 +174,6 @@ export default function App() {
   const animatedStyle = useAnimatedStyle(() => {
     return {
       top:windowHeight-95,
-      // height:withSpring(interpolate(Y.value,[0,-10],[BottomHeight,windowHeight-20],Extrapolate.CLAMP),config)
       transform:[{
         translateY:clamp(Y.value,-(windowHeight-95),0)
       }]
@@ -207,6 +219,14 @@ export default function App() {
      opacity:interpolate(Y.value,[-590,-600],[0,1],Extrapolate.CLAMP),
     };
   });
+  const playMusic=()=>{
+    'worklet'
+    setPlay(false)
+  }
+  const PuseMusic=()=>{
+    'worklet'
+    setPlay(true)
+  }
   const renderItem=({item,index})=>{
     return(
       <View style={{padding:8}}>
@@ -263,11 +283,16 @@ export default function App() {
           minimumTrackTintColor="black"
           maximumTrackTintColor="#000000"  
           thumbTintColor="black"
-          initial value={1.7}
-         
-          
-         
+          initial value={1.7}    
   />
+        <View style={styles.PlayList}>
+        <AntDesign name="banckward" size={28} color="black" />
+      {
+        play?<AntDesign name="pause" onPress={playMusic} style={styles.play} size={40} color="white" />
+        :<MaterialIcons name="play-arrow" onPress={PuseMusic} size={40} color="white" style={styles.play} />
+      }
+      <AntDesign name="forward" size={28} color="black" />
+        </View>
       </Animated.View>
       </PanGestureHandler>
      <StatusBar/>
