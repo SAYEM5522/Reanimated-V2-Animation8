@@ -193,6 +193,12 @@ export default function App() {
       fontSize:interpolate(Y.value,[0,-(windowHeight-95)],[15,22],Extrapolate.CLAMP),
     };
   });
+  
+  const IconAnimation= useAnimatedStyle(() => {
+    return {
+     opacity:interpolate(Y.value,[-590,-600],[0,1],Extrapolate.CLAMP),
+    };
+  });
   const renderItem=({item,index})=>{
     return(
       <View style={{padding:8}}>
@@ -238,7 +244,9 @@ export default function App() {
           <Animated.Text style={[styles.TextC1,Text1Animation]}>Jude Wild</Animated.Text>
           <Text style={styles.TextC2}>Daniel</Text>
         </Animated.View>
-        <AntDesign name="hearto" style={styles.Heart} size={24} color="black" />
+        <Animated.View style={IconAnimation}>
+        <AntDesign name="hearto" style={[styles.Heart]} size={24} color="black" />
+        </Animated.View>
         </View>
        
       </Animated.View>
