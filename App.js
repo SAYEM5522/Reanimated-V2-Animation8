@@ -126,12 +126,26 @@ const styles = StyleSheet.create({
     padding:20,
     backgroundColor:'black',
     borderRadius:45,
+    overflow: 'visible',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 15,
+    height:84,
+    width:84,
+    
+
   },
   PlayList:{
     flexDirection:"row",
     alignItems:'center',
     top:60,
-    justifyContent:'space-evenly'
+    justifyContent:'space-evenly',
+   
   }
 
  
