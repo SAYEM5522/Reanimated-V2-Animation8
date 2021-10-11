@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, FlatList, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
@@ -6,6 +6,7 @@ import {Item} from "./Component/Data"
 import Header from './Component/Header';
 import Feed from './Component/Fedd';
 import { AntDesign } from '@expo/vector-icons';
+import Slider from '@react-native-community/slider';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const BottomHeight=70
@@ -112,11 +113,18 @@ const styles = StyleSheet.create({
   },
   Heart:{
     marginLeft:(windowWidth-195)
+  },
+  Slader:{
+    width: windowWidth-25,
+     height: 40,
+     alignSelf:'center',
+     top:40
   }
 
  
 });
 export default function App() {
+  const [value,setValue]=useState(0);
   const Y = useSharedValue(0);
   const config={
     mass:0.3,
@@ -230,7 +238,7 @@ export default function App() {
       <PanGestureHandler onGestureEvent={gestureHandler}>
       <Animated.View style={[styles.Container,animatedStyle,]}>
         <Animated.View style={[styles.HeaderS,HeaderOpacity]}>
-        <AntDesign name="down" size={30} color="black" />
+        <AntDesign name="down" size={26} color="black" />
         <Text style={styles.HeaderST}>Daniel</Text>
         </Animated.View>
         <Animated.View style={[styles.CBImage,ImageAnimation]}>
@@ -248,7 +256,18 @@ export default function App() {
         <AntDesign name="hearto" style={[styles.Heart]} size={24} color="black" />
         </Animated.View>
         </View>
-       
+        <Slider
+          style={styles.Slader}
+          minimumValue={0}
+          maximumValue={3.5}
+          minimumTrackTintColor="black"
+          maximumTrackTintColor="#000000"  
+          thumbTintColor="black"
+          initial value={1.7}
+         
+          
+         
+  />
       </Animated.View>
       </PanGestureHandler>
      <StatusBar/>
