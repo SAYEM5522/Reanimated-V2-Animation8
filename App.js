@@ -117,13 +117,12 @@ const styles = StyleSheet.create({
   },
   Slader:{
     width: windowWidth-25,
-     height: 40,
      alignSelf:'center',
      top:40
   },
   play:{
     alignSelf:"center",
-    padding:20,
+    padding:13,
     backgroundColor:'black',
     borderRadius:45,
     overflow: 'visible',
@@ -222,6 +221,18 @@ export default function App() {
     ],
     };
   });
+  const SliderAnimation = useAnimatedStyle(() => {
+    return {
+     transform:[{
+       translateY:interpolate(Y.value,[0,-(windowHeight-95)],[-420,0],Extrapolate.CLAMP),
+     },
+     {
+      translateX:interpolate(Y.value,[0,-(windowHeight-95)],[27,0],Extrapolate.CLAMP),
+     }
+    ],
+    width:interpolate(Y.value,[0,-(windowHeight-95)],[windowWidth-120,windowWidth-25],Extrapolate.CLAMP),
+    };
+  });
   const Text1Animation = useAnimatedStyle(() => {
     return {
       fontSize:interpolate(Y.value,[0,-(windowHeight-95)],[15,22],Extrapolate.CLAMP),
@@ -235,12 +246,10 @@ export default function App() {
   });
   const playMusic=()=>{
     'worklet'
-    setPlay(false)
+    setPlay(!play)
   }
-  const PuseMusic=()=>{
-    'worklet'
-    setPlay(true)
-  }
+
+  const AniatedSlider=Animated.createAnimatedComponent(Slider)
   const renderItem=({item,index})=>{
     return(
       <View style={{padding:8}}>
@@ -290,8 +299,8 @@ export default function App() {
         <AntDesign name="hearto" style={[styles.Heart]} size={24} color="black" />
         </Animated.View>
         </View>
-        <Slider
-          style={styles.Slader}
+        <AniatedSlider
+          style={[styles.Slader,SliderAnimation]}
           minimumValue={0}
           maximumValue={3.5}
           minimumTrackTintColor="black"
@@ -302,8 +311,8 @@ export default function App() {
         <View style={styles.PlayList}>
         <AntDesign name="banckward" size={28} color="black" />
       {
-        play?<AntDesign name="pause" onPress={playMusic} style={styles.play} size={40} color="white" />
-        :<MaterialIcons name="play-arrow" onPress={PuseMusic} size={40} color="white" style={styles.play} />
+        play?<AntDesign name="pause" onPress={playMusic} style={styles.play} size={55} color="white" />
+        :<MaterialIcons name="play-arrow" onPress={playMusic} size={55} color="white" style={styles.play} />
       }
       <AntDesign name="forward" size={28} color="black" />
         </View>
