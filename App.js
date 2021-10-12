@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Dimensions, FlatList, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
+
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import {Item} from "./Component/Data"
@@ -281,7 +282,8 @@ export default function App() {
     )
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
+      
       <Header/>
       <View style={styles.List}>
           <FlatList
@@ -347,7 +349,7 @@ export default function App() {
         </View>
       </Animated.View>
       </PanGestureHandler>
-     <StatusBar/>
+     <StatusBar/> 
     </View>
   );
 }
