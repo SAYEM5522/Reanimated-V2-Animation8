@@ -13,6 +13,7 @@ const windowHeight = Dimensions.get('window').height;
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
+import DetailScreen from './Screen/DetailScreen';
 const Stack = createNativeStackNavigator();
 enableScreens();
 const BottomHeight=70
@@ -104,8 +105,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 10,
     elevation: 12,
-    // height:(windowHeight/2)-50,
-    // width:windowWidth-55,
+  
     borderRadius:30,
     alignSelf:'center',
   },
@@ -362,6 +362,7 @@ return(
   <NavigationContainer >
      <Stack.Navigator>
       <Stack.Screen options={{headerShown:false}} name="Home" component={Home} />
+      <Stack.Screen options={{headerShown:false}} name="Details" component={DetailScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 )
