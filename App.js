@@ -362,7 +362,7 @@ return(
   <NavigationContainer >
      <Stack.Navigator>
       <Stack.Screen options={{headerShown:false}} name="Home" component={Home} />
-      <Stack.Screen options={{headerShown:false}} name="Details" component={DetailScreen} />
+      <Stack.Screen options={{headerShown:false,animation:"slide_from_right",presentation:'transparentModal'}} name="Details" component={DetailScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 )

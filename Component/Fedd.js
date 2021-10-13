@@ -1,14 +1,21 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 const Fedd = () => {
+  const navigation=useNavigation();
+  const onPress=()=>{
+    navigation.push("Details")
+  }
   return (
     <View >
-     <View style={styles.ImageS}>
+     
+     <View  style={styles.ImageS}>
+     <Pressable onPress={onPress}>
       <Image
      source={{uri:'https://t4.ftcdn.net/jpg/03/26/55/55/360_F_326555521_3Fdxm6Ue8OCATwOt9Kc7dMy2S0Ml5jaz.jpg'}}
      style={styles.Image}
      />
+     </Pressable>
        </View>
      <Text style={styles.SongC}>Favorites</Text>
      <Text style={styles.SongN}>10 songs</Text>
