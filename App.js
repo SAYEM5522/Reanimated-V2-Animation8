@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Dimensions, FlatList, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
-
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import {Item} from "./Component/Data"
@@ -11,6 +10,11 @@ import Slider from '@react-native-community/slider';
 import { MaterialIcons } from '@expo/vector-icons';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { enableScreens } from 'react-native-screens';
+import { NavigationContainer } from '@react-navigation/native';
+const Stack = createNativeStackNavigator();
+enableScreens();
 const BottomHeight=70
 const styles = StyleSheet.create({
   container:{
@@ -32,6 +36,7 @@ const styles = StyleSheet.create({
   },
   List:{
     alignSelf:'center',
+   
     
   },
   SongC:{
@@ -162,7 +167,7 @@ const styles = StyleSheet.create({
 
  
 });
-export default function App() {
+ function Home() {
   const [play ,setPlay]=useState(false)
   const Y = useSharedValue(0);
   const config={
@@ -283,7 +288,6 @@ export default function App() {
   }
   return (
     <View style={styles.container} >
-      
       <Header/>
       <View style={styles.List}>
           <FlatList
@@ -352,6 +356,15 @@ export default function App() {
      <StatusBar/> 
     </View>
   );
+}
+ export default function App(){
+return(
+  <NavigationContainer >
+     <Stack.Navigator>
+      <Stack.Screen options={{headerShown:false}} name="Home" component={Home} />
+    </Stack.Navigator>
+  </NavigationContainer>
+)
 }
 
 
