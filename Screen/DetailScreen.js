@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import { AntDesign } from '@expo/vector-icons';
 import ToggleSwitch from 'toggle-switch-react-native'
+import { Item } from '../Component/Data';
+import { Entypo } from '@expo/vector-icons';
 const styles = StyleSheet.create({
   Container:{
     flex:1,
@@ -55,11 +57,43 @@ const styles = StyleSheet.create({
     fontSize:16,
     fontWeight:'700',
     color:"gray",
+  },
+  FavoriteList:{
+    height:windowHeight/2.3,
+    width:windowWidth,
+    top:5
+  },
+  ItemContainer:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+    paddingHorizontal:15,
+    paddingVertical:10
+  },
+  Text1:{
+    fontSize:16,
+    fontWeight:'bold'
+  },
+  Text2:{
+    color:'gray'
   }
 })
 const DetailScreen = ({route}) => {
+
+
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const renderItem=({item,index})=>{
+    return(
+      <View style={styles.ItemContainer}>
+        <View >
+          <Text style={styles.Text1}>{item.name}</Text>
+          <Text style={styles.Text2}>{item.name2}</Text>
+        </View>
+        <Entypo name="dots-three-horizontal" size={22} color="gray" />
+      </View>
+    )
+  }
   return (
     <View style={styles.Container}>
       <View style={styles.ImageContainer}>
@@ -79,7 +113,17 @@ const DetailScreen = ({route}) => {
         size="large"
         onToggle={toggleSwitch}
 />
+     
      </View>
+     <View style={styles.FavoriteList}>
+        <FlatList
+        data={Item}
+        keyExtractor={(item)=>item.id}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+
+        />
+    </View>
     </View>
   )
 }
